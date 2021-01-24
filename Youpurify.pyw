@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import *
 
 
 def get_id():
@@ -137,7 +138,7 @@ fenetre.resizable(width=False, height=False)
 
 logo_banner = PhotoImage(file='images/banner.png')
 canvas = Canvas(fenetre, width=600, height=150)
-item = canvas.create_image(300, 90, image=logo_banner, )
+item = canvas.create_image(300, 90, image=logo_banner)
 canvas.pack()
 
 textLabel = Label(fenetre, text="Entrez le lien de la vidéo Youtube", font=("Calibri", 15))
