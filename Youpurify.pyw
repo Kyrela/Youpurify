@@ -1,5 +1,20 @@
 from tkinter import *
 from tkinter.ttk import *
+from os import *
+import sys
+
+# convertion using auto-py-to-exe (pyinstaller)
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = path.abspath(".")
+
+    return path.join(base_path, relative_path)
 
 
 def get_id():
@@ -100,7 +115,7 @@ def coller():
     texteChamp.set(texte)
 
 
-def startToCheckCommand():
+def start_to_check_command():
     if startToVariable.get() == 1:
         minuteInput.config(state="normal")
         minuteLabel.config(state="normal")
@@ -113,7 +128,7 @@ def startToCheckCommand():
         secondeLabel.config(state="disabled")
 
 
-def autoCheckCommand():
+def auto_check_command():
     if autoCheckVariable.get() == 1:
         minuteInput.config(state="disabled")
         minuteLabel.config(state="disabled")
@@ -129,14 +144,16 @@ def autoCheckCommand():
         startToCheck.config(state="normal")
 
 
+erreur = False
+
 # fenetre
 fenetre = Tk()
-fenetre.call('wm', 'iconphoto', fenetre.w, PhotoImage(file='images/logo.png'))
+fenetre.call('wm', 'iconphoto', fenetre.w, PhotoImage(file=resource_path('assets/logo.png')))
 fenetre.title("Youpurify")
 fenetre.geometry("600x400")
 fenetre.resizable(width=False, height=False)
 
-logo_banner = PhotoImage(file='images/banner.png')
+logo_banner = PhotoImage(file=resource_path('assets/banner.png'))
 canvas = Canvas(fenetre, width=600, height=150)
 item = canvas.create_image(300, 90, image=logo_banner)
 canvas.pack()
@@ -163,8 +180,8 @@ startToManualFrame.pack(padx=20, side="left")
 
 startToVariable = IntVar()
 startToVariable.set(1)
-startToCheck = Checkbutton(startToManualFrame, text="Démarrer à", variable=startToVariable, command=startToCheckCommand,
-                           state="disabled")
+startToCheck = Checkbutton(startToManualFrame, text="Démarrer à", variable=startToVariable,
+                           command=start_to_check_command, state="disabled")
 startToCheck.pack(side="left", padx=10)
 
 minuteChamp = StringVar()
@@ -184,7 +201,7 @@ secondeLabel.pack(side="left")
 autoCheckVariable = IntVar()
 autoCheckVariable.set(1)
 autoCheck = Checkbutton(startToFrame, text="Déterminer automatiquement", variable=autoCheckVariable,
-                        command=autoCheckCommand)
+                        command=auto_check_command)
 autoCheck.pack(side="right", padx=20)
 
 purifier_button = Button(fenetre, text="purifier", command=purifier, width=20)
