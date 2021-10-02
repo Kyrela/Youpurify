@@ -13,7 +13,6 @@ def resource_path(relative_path):
         base_path = sys._MEIPASS
     except Exception:
         base_path = path.abspath(".")
-
     return path.join(base_path, relative_path)
 
 
@@ -148,7 +147,7 @@ erreur = False
 
 # fenetre
 fenetre = Tk()
-fenetre.call('wm', 'iconphoto', fenetre.w, PhotoImage(file=resource_path('assets/logo.png')))
+fenetre.call('wm', 'iconphoto', fenetre._w, PhotoImage(file=resource_path('assets/logo.png')))
 fenetre.title("Youpurify")
 fenetre.geometry("600x400")
 fenetre.resizable(width=False, height=False)
